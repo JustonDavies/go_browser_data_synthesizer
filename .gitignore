@@ -1,0 +1,12 @@
+# Git
+!.gitignore
+
+# Jetbrains
+.idea
+
+# Ignore all scratch/ignore_me file
+.ignored
+
+# Temporary / Output files
+build
+!.keep
