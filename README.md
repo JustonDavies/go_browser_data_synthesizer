@@ -1,7 +1,11 @@
-Browser History Synthesizer
+Browser Data Synthesizer
 ==========
 
-This project exists as a simple multi-platform application to read and write large amounts of typically user-driven browser activity.
+This project exists as a simple multi-platform application to read and write large amounts of typically user-driven browser data such as:
+  - History
+  - Cookies
+  - Credentials (limited)
+  - Bookmarks
 
 Development
 ===========
@@ -46,7 +50,7 @@ Build
 To build binaries for all supported platforms:
 
 ```
-$ bin/build.sh
+$ scripts/build.sh
 ```
 
 How to use

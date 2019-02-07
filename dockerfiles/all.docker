@@ -9,7 +9,7 @@ RUN locale-gen C.UTF-8 || true
 ENV LANG=C.UTF-8
 
 # Set working directory
-WORKDIR /go/src/github.com/justondavies/go_browser_history_synthesizer/
+WORKDIR /go/src/github.com/justondavies/go_browser_data_synthesizer/
 
 # Download go modules
 ENV GO111MODULE=on
@@ -28,8 +28,8 @@ COPY ./ ./
 RUN ls -hal /usr/bin | grep gcc
 
 # Build artifact
-RUN CGO_ENABLED=1 CC=gcc                    GOOS=linux   GOARCH=amd64 go build -ldflags '-linkmode external -extldflags -static -w' -o build/browser_activity_synthesizer_linux       cmd/main.go
-RUN CGO_ENABLED=1 CC=o64-clang              GOOS=darwin  GOARCH=amd64 go build -ldflags '-linkmode external -extldflags -w'         -o build/browser_activity_synthesizer_darwin      cmd/main.go
-RUN CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc GOOS=windows GOARCH=amd64 go build -ldflags '-linkmode external -extldflags -static -w' -o build/browser_activity_synthesizer_windows.exe cmd/main.go
+RUN CGO_ENABLED=1 CC=gcc                    GOOS=linux   GOARCH=amd64 go build -ldflags '-linkmode external -extldflags -static -w' -o build/browser_data_synthesizer_linux       cmd/main.go
+RUN CGO_ENABLED=1 CC=o64-clang              GOOS=darwin  GOARCH=amd64 go build -ldflags '-linkmode external -extldflags -w'         -o build/browser_data_synthesizer_darwin      cmd/main.go
+RUN CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc GOOS=windows GOARCH=amd64 go build -ldflags '-linkmode external -extldflags -static -w' -o build/browser_data_synthesizer_windows.exe cmd/main.go
 
 #NOTE: This is done better in every possible way at: https://github.com/docker/cli
