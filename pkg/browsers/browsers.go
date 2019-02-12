@@ -14,12 +14,15 @@ var webkitEpoch = time.Date(1601, 1, 1, 0, 0, 0, 0, time.UTC)
 
 //-- Structs -----------------------------------------------------------------------------------------------------------
 type Browser interface {
-	InjectHistory(History) error
-	InjectCredential(Credential) error
-	InjectBookmark(Bookmark) error
+	AddHistory(History) error
+	AddBookmark(Bookmark) error
+	AddCredential(Credential) error
 
 	open() error
+	load() error
 	close() error
+	purge() error
+	commit() error
 }
 
 type History struct {
@@ -47,22 +50,44 @@ func Open() []Browser {
 	var browsers []Browser
 
 	{
-		var subject = new(chrome)
-		if err := subject.open(); err != nil {
+		var browser = new(chrome)
+		if err := browser.open(); err != nil {
 			log.Println(`Error connecting to Chrome databases: `, err)
-		} else if err := subject.purge(); err != nil {
-			log.Println(`Error initializing Chrome databases: `, err)
 		} else {
-			browsers = append(browsers, subject)
+			browsers = append(browsers, browser)
 		}
 	}
 
 	return browsers
 }
 
+func Load(browsers []Browser) {
+	for _, browser := range browsers {
+		if err := browser.load(); err != nil {
+			log.Println(`error committing browser: `, err)
+		}
+	}
+}
+
+func Purge(browsers []Browser) {
+	for _, browser := range browsers {
+		if err := browser.purge(); err != nil {
+			log.Println(`error purging browser: `, err)
+		}
+	}
+}
+
+func Commit(browsers []Browser) {
+	for _, browser := range browsers {
+		if err := browser.commit(); err != nil {
+			log.Println(`error committing browser: `, err)
+		}
+	}
+}
+
 func Close(browsers []Browser) {
-	for _, brow := range browsers {
-		if err := brow.close(); err != nil {
+	for _, browser := range browsers {
+		if err := browser.close(); err != nil {
 			log.Println(`error closing browser: `, err)
 		}
 	}

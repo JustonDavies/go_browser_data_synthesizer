@@ -11,6 +11,8 @@ const MaximumVisits = 200
 
 const DefaultDuration = time.Duration(time.Hour * 24 * 7 * 52 * 4)
 
+const BookmarkOneInX = 100
+
 var ActivityItems = []ActivityItem{
 	{`Google Inc.`, `https://google.com`},
 }

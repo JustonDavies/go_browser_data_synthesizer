@@ -9,7 +9,6 @@ import (
 
 	"github.com/JustonDavies/go_browser_data_synthesizer/configs"
 	"github.com/JustonDavies/go_browser_data_synthesizer/pkg/browsers"
-	"github.com/cheggaaa/pb"
 )
 
 //-- Constants ---------------------------------------------------------------------------------------------------------
@@ -32,8 +31,10 @@ func main() {
 		rand.Seed(time.Now().UnixNano())
 	}
 
-	log.Println(`Injecting history...`)
-	var historyProgress = pb.StartNew(len(configs.ActivityItems))
+	browsers.Load(browserz)
+	browsers.Purge(browserz)
+
+	log.Println(`Creating history...`)
 	for _, item := range configs.ActivityItems {
 		var browser = browserz[rand.Intn(len(browserz))]
 		var item = browsers.History{
@@ -43,16 +44,14 @@ func main() {
 			VisitWindow: configs.DefaultDuration,
 		}
 
-		if err := browser.InjectHistory(item); err != nil {
+		if err := browser.AddHistory(item); err != nil {
 			log.Printf("unable to inject history item for: \n\tURL: '%s' \n\tError: '%s'", item.URL, err)
 		}
-		historyProgress.Increment()
 	}
 
-	log.Println(`Injecting bookmarks...`)
-	var bookmarkProgress = pb.StartNew(len(configs.ActivityItems))
+	log.Println(`Creating bookmarks...`)
 	for _, item := range configs.ActivityItems {
-		if rand.Intn(99) == 0 {
+		if rand.Intn(configs.BookmarkOneInX) == 0 {
 			var browser = browserz[rand.Intn(len(browserz))]
 			var item = browsers.Bookmark{
 				Name:         item.Name,
@@ -60,12 +59,14 @@ func main() {
 				CreateWindow: configs.DefaultDuration,
 			}
 
-			if err := browser.InjectBookmark(item); err != nil {
+			if err := browser.AddBookmark(item); err != nil {
 				log.Printf("unable to inject bookmark item for: \n\tURL: '%s' \n\tError: '%s'", item.URL, err)
 			}
 		}
-		bookmarkProgress.Increment()
 	}
+
+	log.Println(`Committing changes...`)
+	browsers.Commit(browserz)
 
 	//-- Log nice output ----------
 	log.Printf(`Task complete! It took %d seconds`, time.Now().Unix()-start)
