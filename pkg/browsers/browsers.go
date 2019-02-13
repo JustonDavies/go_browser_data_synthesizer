@@ -5,7 +5,6 @@ package browsers
 import (
 	"log"
 	"math/rand"
-	"net/url"
 	"time"
 )
 
@@ -33,7 +32,7 @@ type History struct {
 }
 
 type Credential struct {
-	URL          url.URL
+	URL          string
 	UserName     string
 	Password     string
 	CreateWindow time.Duration
@@ -52,7 +51,7 @@ func Open() []Browser {
 	{
 		var browser = new(chrome)
 		if err := browser.open(); err != nil {
-			log.Println(`Error connecting to Chrome databases: `, err)
+			log.Println(`error connecting to chrome data sets: `, err)
 		} else {
 			browsers = append(browsers, browser)
 		}
