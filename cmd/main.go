@@ -7,8 +7,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/JustonDavies/go_browser_data_synthesizer/configs"
-	"github.com/JustonDavies/go_browser_data_synthesizer/pkg/browsers"
+	"github.com/JustonDavies/go_browser_forensics/configs"
+	"github.com/JustonDavies/go_browser_forensics/pkg/browsers"
 )
 
 //-- Constants ---------------------------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-module github.com/JustonDavies/go_browser_data_synthesizer
+module github.com/JustonDavies/go_browser_forensics
 
 require (
 	cloud.google.com/go v0.35.1 // indirect

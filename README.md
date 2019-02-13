@@ -1,16 +1,19 @@
-Browser Data Synthesizer
+Browser Forensics
 ==========
 
-This project exists as a simple multi-platform application to read and write large amounts of typically user-driven browser data such as:
-  - History
-  - Cookies
-  - Credentials (limited)
-  - Bookmarks
+This project exists as a simple multi-platform application to:
+  - Read/Write the following through a common interface
+    - History
+    - Cookies
+    - Credentials (limited)
+    - Bookmarks
+  - Backup data to a secure common interface
+  - Restore a set of common interface data into a given browser  
 
 Development
 ===========
 
-`justondavies/go_browser_activity_synthesizer` is developed using Docker.
+This project is developed using Docker.
 
 ### Project Structure
 The project is follows the established paradigms in [golang standards project-layout](https://github.com/golang-standards/project-layout) project and is broken down into the following directory structure:
