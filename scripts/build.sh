@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 echo Building justondavies/go_browser_forensics:build
 
-sudo docker build                                         \
-  --network host                                          \
-  --file dockerfiles/all.docker                           \
-  --tag justondavies/go_browser_forensics:build    \
+sudo docker build                                                          \
+  --network host                                                           \
+  --file dockerfiles/all.docker                                            \
+  --tag justondavies/go_browser_forensics:build                            \
   ./
 
-sudo docker create                                         \
-  --name build_extract                                     \
+sudo docker create                                                         \
+  --name build_extract                                                     \
   justondavies/go_browser_forensics:build
 
 rm -rf ./build/browser*

@@ -68,6 +68,14 @@ func Load(browsers []Browser) {
 	}
 }
 
+func Close(browsers []Browser) {
+	for _, browser := range browsers {
+		if err := browser.close(); err != nil {
+			log.Println(`error closing browser: `, err)
+		}
+	}
+}
+
 func Purge(browsers []Browser) {
 	for _, browser := range browsers {
 		if err := browser.purge(); err != nil {
@@ -80,14 +88,6 @@ func Commit(browsers []Browser) {
 	for _, browser := range browsers {
 		if err := browser.commit(); err != nil {
 			log.Println(`error committing browser: `, err)
-		}
-	}
-}
-
-func Close(browsers []Browser) {
-	for _, browser := range browsers {
-		if err := browser.close(); err != nil {
-			log.Println(`error closing browser: `, err)
 		}
 	}
 }
